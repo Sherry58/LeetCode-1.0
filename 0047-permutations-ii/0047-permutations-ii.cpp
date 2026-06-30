@@ -2,30 +2,34 @@ class Solution {
 public:
     vector<vector<int>> result;
     int n;
-
-    void solve(vector<int>& nums, int idx){
-        if(idx == n){
-            result.push_back(nums);
+    void solve(unordered_map<int, int> mp, vector<int> temp){
+        if(temp.size() >= n){
+            result.push_back(temp);
             return;
         }
+        for(auto &x : mp){
+            int num = x.first;
+            int count = x.second;
 
-        unordered_set<int> st;
-        for(int i=idx; i<n; i++){
-            if(st.find(nums[i]) != st.end()){
-                continue;
-            }
-            st.insert(nums[i]);
-            swap(nums[i], nums[idx]);
+            if(count == 0) continue;
 
-            solve(nums, idx+1);
+            temp.push_back(num);
+            mp[num]--;
 
-            swap(nums[i], nums[idx]);
+            solve(mp, temp);
+
+            temp.pop_back();
+            mp[num]++;
         }
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         n = nums.size();
-        int idx = 0;
-        solve(nums, idx);
+        unordered_map<int, int> mp;
+        for(int &num : nums) mp[num]++;
+
+        vector<int> temp = {};
+        solve(mp, temp);
+
         return result;
     }
 };
