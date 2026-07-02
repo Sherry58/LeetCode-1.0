@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<string> map = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     vector<string> results;
-    void solve(string& digits, vector<string>& map, int idx, string& curr){
+    void solve(string& digits, int idx, string& curr){
         if(idx >= digits.size()){
             results.push_back(curr);
             return;
@@ -14,7 +14,7 @@ public:
 
             curr.push_back(letters[i]);
 
-            solve(digits, map, idx+1, curr);
+            solve(digits, idx+1, curr);
 
             curr.pop_back();
         }
@@ -24,7 +24,7 @@ public:
         
          if(digits.empty()) return {};
 
-        solve(digits, map, idx, curr);
+        solve(digits, idx, curr);
 
         return results;
 
