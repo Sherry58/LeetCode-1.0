@@ -15,6 +15,7 @@ public:
         queue<TreeNode*> q;
 
         if(root == NULL) return {};
+        
         q.push(root);
         vector<vector<int>> result;
 
