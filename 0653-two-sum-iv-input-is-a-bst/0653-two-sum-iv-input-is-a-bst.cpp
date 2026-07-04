@@ -11,22 +11,59 @@
  */
 class Solution {
 public:
-    unordered_set<int> st;
-    bool solve(TreeNode* root, int k){
-        if(root == NULL) return false;
+    class BST_Iterator{
+    public:
+        stack<TreeNode*> st;
+        bool reverse;
 
-        int remSum = k-(root->val);
+        BST_Iterator(TreeNode* root, bool rev){
+            
+            reverse = rev;
 
-        if(st.find(remSum) != st.end()){
-            return true;
+            pushAll(root);
+
         }
 
-        st.insert(root->val);
+        void pushAll(TreeNode* root){
+            while(root){
 
-        return (solve(root->left, k) or solve(root->right, k));
-    }
+                st.push(root);
+
+                if(reverse) root = root->right;
+
+                else root = root->left;
+            }
+        }
+
+        int next(){
+            TreeNode* node = st.top();
+            st.pop();
+
+            if(reverse) pushAll(node->left);
+
+            else pushAll(node->right);
+
+            return node->val;
+        }
+    };
     bool findTarget(TreeNode* root, int k) {
-        
-        return solve(root, k);
+        if(root == NULL) return false;
+
+        BST_Iterator left(root, false);
+        BST_Iterator right(root, true);
+
+        int ptr1 = left.next();
+        int ptr2 = right.next();
+
+        while(ptr1 < ptr2){
+            int sum = ptr1 + ptr2;
+
+            if(sum == k) return true;
+
+            else if(sum < k) ptr1 = left.next();
+
+            else ptr2 = right.next();
+        }
+        return false;
     }
 };
