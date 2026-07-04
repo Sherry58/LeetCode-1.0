@@ -11,28 +11,27 @@
  */
 class Solution {
 public:
-    vector<int> arr;
-    void inorder(TreeNode* root){
-        if(root == NULL) return;
+    unordered_set<int> st;
+    bool solve(TreeNode* root, int k){
+        if(root == NULL) return false;
 
-        inorder(root->left);
-        arr.push_back(root->val);
-        inorder(root->right);
+        int remSum = k-(root->val);
+
+        if(st.find(remSum) != st.end()){
+            return true;
+        }
+
+        st.insert(root->val);
+
+        bool path1 = solve(root->left, k);
+        bool path2 = solve(root->right, k);
+
+        if(path1 == true or path2 == true) return true;
+
+        else return false;
     }
     bool findTarget(TreeNode* root, int k) {
-
-        inorder(root);
-
-        int n = arr.size();
-        int i = 0, j = n-1;
-
-        while(i < j){
-            if(arr[i]+arr[j] == k) return true;
-
-            else if(arr[i]+arr[j] < k) i++;
-
-            else j--;
-        }
-        return false;
+        
+        return solve(root, k);
     }
 };
