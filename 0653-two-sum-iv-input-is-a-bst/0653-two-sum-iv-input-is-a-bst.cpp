@@ -23,12 +23,7 @@ public:
 
         st.insert(root->val);
 
-        bool path1 = solve(root->left, k);
-        bool path2 = solve(root->right, k);
-
-        if(path1 == true or path2 == true) return true;
-
-        else return false;
+        return (solve(root->left, k) or solve(root->right, k));
     }
     bool findTarget(TreeNode* root, int k) {
         
