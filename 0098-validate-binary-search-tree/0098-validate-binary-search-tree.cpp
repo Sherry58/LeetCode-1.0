@@ -11,26 +11,34 @@
  */
 class Solution {
 public:
-    vector<int> result;
+    TreeNode* prev = NULL;
+    bool ans = true;
+
     void solve(TreeNode* root){
+
         if(root == NULL) return;
 
         solve(root->left);
 
-        result.push_back(root->val);
+        if(prev == NULL) prev = root;
+
+        else{
+
+            if(prev->val >= root->val){
+                ans = false;
+            }
+
+            prev = root;
+
+        }
 
         solve(root->right);
     }
-    
+
     bool isValidBST(TreeNode* root) {
        
         solve(root);
 
-        for(int i = 1; i < result.size(); i++){
-
-            if(result[i] <= result[i-1]) return false;
-        }
-
-        return true;
+        return ans;
     }
 };
