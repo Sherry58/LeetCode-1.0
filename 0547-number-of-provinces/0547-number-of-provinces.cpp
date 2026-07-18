@@ -7,7 +7,6 @@ public:
         for(auto& v : adj[u]){
 
             if(visited[v] == false){
-                visited[v] = true;
 
                 DFS(adj, v, visited);
             }
