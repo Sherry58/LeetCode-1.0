@@ -1,14 +1,19 @@
 class Solution {
 public:
-    void DFS(vector<vector<int>> &adj, int u, vector<bool>& visited){
-
+    void BFS(vector<vector<int>> &adj, int u, vector<bool>& visited){
+        queue<int> que;
+        que.push(u);
         visited[u] = true;
 
-        for(auto& v : adj[u]){
+        while(!que.empty()){
+            int u = que.front();
+            que.pop();
 
-            if(visited[v] == false){
+            for(auto &v : adj[u]){
+                if(visited[v] == false){
 
-                DFS(adj, v, visited);
+                    BFS(adj, v, visited);
+                }
             }
         }
     }
@@ -22,21 +27,17 @@ public:
         for(int i = 0; i<N ; i++){
             for(int j = 0; j<N; j++){
                 if(isConnected[i][j] == 1){
-
                     adj[i].push_back(j);
                     adj[j].push_back(i);
-
                 }
-
             }
         }
 
         int count = 0;
-
         for(int i = 0; i<N; i++){
             if(visited[i] == false){
 
-                DFS(adj, i, visited);
+                BFS(adj, i, visited);
                 count++;
             }
         }
