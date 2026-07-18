@@ -3,7 +3,6 @@ public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         
         vector<vector<int>> adj(numCourses);
-        vector<bool> visited(numCourses, false);
         vector<int> indegree(numCourses, 0);
 
         for(auto &x : prerequisites){
