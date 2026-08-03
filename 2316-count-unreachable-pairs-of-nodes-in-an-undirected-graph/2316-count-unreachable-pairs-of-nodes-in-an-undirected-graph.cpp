@@ -55,9 +55,9 @@ public:
 
         for(auto &it : mp){
             long long currsize = it.second;
-            
+
             remsize -= currsize;
-            ans += 1LL*currsize * remsize;
+            ans += (long long)currsize * remsize;
         } 
             
         return ans;
