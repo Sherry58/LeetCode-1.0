@@ -11,7 +11,7 @@ public:
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
         vector<int> dist(n, INT_MAX);
 
-        k--; //converted to zero based indexing
+        k = k-1; //converted to zero based indexing
         dist[k] = 0;
         pq.push({0, k});
 
@@ -28,7 +28,7 @@ public:
                 int nbr = adj[node][i].first;
                 int wt = adj[node][i].second;
 
-                if(d+wt < dist[nbr]){
+                if((d+wt) < dist[nbr]){
                     dist[nbr] = d+wt;
                     pq.push({dist[nbr], nbr});
                 }
