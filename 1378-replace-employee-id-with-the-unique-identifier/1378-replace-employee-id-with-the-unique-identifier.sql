@@ -1,4 +1,3 @@
--- Write your PostgreSQL query statement below
-SELECT u.unique_id , e.name FROM
-Employees e LEFT JOIN EmployeeUNI u
-ON e.id = u.id;
+SELECT e2.unique_id AS unique_id, e1.name AS name
+FROM Employees e1 LEFT JOIN EmployeeUNI e2
+ON e1.id = e2.id
