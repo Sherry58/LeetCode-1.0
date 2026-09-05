@@ -1,11 +1,10 @@
 -- Write your PostgreSQL query statement below
-WITH temp AS(
-    SELECT *, 
-        LEAD(num,1) OVER(ORDER BY id) AS next_num,
-        LEAD(num,2) OVER(ORDER BY id) AS next2_num
-    FROM Logs
-)
+SELECT DISTINCT l1.num AS ConsecutiveNums
+FROM
+Logs l1 JOIN Logs l2
+ON l2.id = l1.id + 1
 
-SELECT DISTINCT num AS ConsecutiveNums
-FROM temp
-WHERE num = next_num AND next_num = next2_num
+JOIN Logs l3
+ON l3.id = l1.id + 2
+
+WHERE l1.num = l2.num AND l2.num = l3.num
